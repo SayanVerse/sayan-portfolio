@@ -16,33 +16,34 @@ import { SiC } from "react-icons/si";
 import { motion } from "framer-motion";
 import Particles from "react-tsparticles";
 import { loadLinksPreset } from "tsparticles-preset-links";
-import "@fontsource/poppins";
+import "@fontsource/open-sans"; // Defaults to weight 400
+
 import CustomCursor from "./CustomCursor";
 
 export default function App() {
-  const [darkMode, setDarkMode] = useState(true);
+
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSkill, setActiveSkill] = useState(null);
+  const [daysLeft, setDaysLeft] = useState(0);
 
   useEffect(() => {
-    const root = window.document.documentElement;
-    if (darkMode) {
-      root.classList.add("dark");
-    } else {
-      root.classList.remove("dark");
-    }
-  }, [darkMode]);
+    const targetDate = new Date("2028-05-31");
+    const today = new Date();
+    const diffTime = targetDate - today;
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    setDaysLeft(diffDays);
+  }, []);
 
   const skills = [
     { name: "C", icon: <SiC className="text-blue-400" />, note: "Strong foundation in C for problem-solving and logic building." },
-    { name: "Java", icon: <FaJava className="text-orange-500" />, note: "Good command on OOPs, Java basics, and backend logic." },
-    { name: "Python", icon: <FaPython className="text-yellow-400" />, note: "Proficient in Python scripting, automation, and data tasks." },
+    { name: "Java", icon: <FaJava className="text-orange-500" />, note: "Good command on OOPs, Java basics, and dsa by java." },
+    { name: "Python", icon: <FaPython className="text-yellow-400" />, note: "Proficient in Python, OOPs concept and data tasks." },
     { name: "HTML", icon: <FaHtml5 className="text-red-500" />, note: "Experienced in semantic HTML for clean structure." },
-    { name: "CSS", icon: <FaCss3Alt className="text-blue-500" />, note: "Skilled in modern responsive layouts using Flexbox and Grid." },
+    { name: "CSS", icon: <FaCss3Alt className="text-blue-500" />, note: "Skilled in modern responsive layouts." },
   ];
 
   return (
-    <div className={`${darkMode ? "dark" : "light"} font-poppins`}>
+    <div className="font-opensans">
       <CustomCursor />
 
       <Particles
@@ -56,10 +57,7 @@ export default function App() {
         className="absolute inset-0 -z-10"
       />
 
-      <div
-        className="min-h-screen bg-cover bg-center bg-no-repeat bg-black/80 text-white"
-        
-      >
+      <div className="min-h-screen bg-cover bg-center bg-no-repeat bg-black/80 text-white">
         {/* Navbar */}
         <div className="flex justify-between items-center px-10 py-5 bg-black/80 backdrop-blur-md border-b border-white/10 text-sm uppercase tracking-widest">
           <h1 className="text-xl font-bold">SAYAN MAITI</h1>
@@ -73,12 +71,6 @@ export default function App() {
             <a href="/sayan_maiti_cv.pdf" download className="hover:text-yellow-400 flex items-center gap-1">
               <FaFileDownload /> CV
             </a>
-            <button
-              onClick={() => setDarkMode(!darkMode)}
-              className="border border-white px-3 py-1 rounded hover:bg-white hover:text-black transition"
-            >
-              {darkMode ? "Light Mode" : "Dark Mode"}
-            </button>
           </div>
           <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden text-lg"><FaBars /></button>
         </div>
@@ -92,13 +84,6 @@ export default function App() {
             <a href="#projects" onClick={() => setMenuOpen(false)}>Projects</a>
             <a href="#certs" onClick={() => setMenuOpen(false)}>Certificates</a>
             <a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a>
-            <a href="/sayan_maiti_cv.pdf" download>Download CV</a>
-            <button
-              onClick={() => setDarkMode(!darkMode)}
-              className="mt-2 border px-3 py-1 border-white rounded"
-            >
-              {darkMode ? "Light Mode" : "Dark Mode"}
-            </button>
           </div>
         )}
 
@@ -120,7 +105,7 @@ export default function App() {
           </motion.div>
 
           <motion.div className="md:w-1/2">
-            <img src="/robot.png" className="w-full max-w-md mx-auto"  />
+            <img src="/robot.png" className="w-full max-w-md mx-auto" />
           </motion.div>
         </motion.section>
 
@@ -306,6 +291,19 @@ export default function App() {
               <p className="text-sm">sayan-maiti</p>
             </a>
           </div>
+        </motion.section>
+        {/* Graduation Countdown */}
+        <motion.section
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="py-10 px-6 text-center text-white bg-black/80 backdrop-blur rounded-xl max-w-2xl mx-auto my-10 border border-cyan-500 shadow-lg"
+        >
+          <h3 className="text-2xl font-bold text-cyan-400 mb-4">🎓 Graduation Countdown</h3>
+          <p className="text-lg">
+            {daysLeft} days left until my graduation in May 2028!
+          </p>
         </motion.section>
 
         {/* Footer */}

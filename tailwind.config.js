@@ -4,13 +4,17 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}",
     "./public/index.html",
   ],
+  
   theme: {
     extend: {
       fontFamily: {
-        orbitron: ['Poppins', 'sans-serif'],
+        sans: ['"Open Sans"', 'sans-serif'],
+        opensans: ['"Open Sans"', 'sans-serif'],
       },
     },
   },
+
+
   darkMode: 'class',
   plugins: [],
 };
